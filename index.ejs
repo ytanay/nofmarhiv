@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%
+    console.log(locals.DICTIONARY)
+    var DICTIONARY = locals.DICTIONARY;
+    var RTL = locals.RTL;
+    function __(key){
+        return locals.DICTIONARY[key] || key;
+    }
+
+    function price(value){
+        return RTL ? (value + ' ₪') : (value + '₪')
+    }
+
+    var units = {
+        'family-suite': {
+            price: {
+                regular: [790, 990],
+                season: 1200
+            },
+            images: 7,
+            sections: {
+                'lower-level': [
+                    'double-jacuzzi',
+                    'sofa-living-room',
+                    'kitchenette'
+                ],
+                'upper-level': [
+                    'fully-wooden'
+                ]
+            }
+        },
+
+        'couples-suite': {
+            price: {
+                regular: [690, 790],
+                season: 1090
+            },
+            images: 5,
+            sections: {
+                'features': [
+                    'balcony-jacuzzi',
+                    'kitchenette'
+                ]
+            }
+        },
+        'family-cabin': {
+            price: {
+                regular: [690, 890],
+                season: 1090
+            },
+            images: 7,
+            sections: {
+                'features': [
+                    'sofa-living-room',
+                    'bedroom-jacuzzi',
+                    'balcony',
+                    'kitchenette'
+                ]
+            }
+        },
+        'couples-family-cabin': {
+            price: {
+                regular: [590, 790],
+                season: 990
+            },
+            images: 4,
+            sections: {
+                'features': [
+                    'living-room-fireplace',
+                    'balcony-jacuzzi',
+                    'massaging-shower',
+                    'kitchenette'
+                ]
+            }
+        },
+        /*'couples-vacation-apartment': {
+            price: {
+                regular: [400, 500],
+                season: 500
+            },
+            images: 1,
+            sections: {
+                'Features': [
+                    'single-jacuzzi',
+                    'panoramic-balcony',
+                    'kitchenette'
+                ]
+            }
+        },*/
+    };
+%>
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title><%= __('title') %></title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/agency.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <%- RTL ? 
+        '<link rel="stylesheet" href="//cdn.rawgit.com/morteza/bootstrap-rtl/master/dist/css/bootstrap-rtl.min.css"><link href="https://fonts.googleapis.com/css?family=Alef&subset=hebrew" rel="stylesheet" type="text/css">' : ''
+    %>
+    
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body id="page-top" class="index <%= RTL && 'rtl' %>">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand page-scroll" href="#page-top"><%= __('title') %></a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-<%= RTL ? 'left' : 'right' %>">
+                    <li class="hidden">
+                        <a href="#page-top"></a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#units"><%= __('units-title') %></a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#contact"><%= __('contact-title') %></a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#area"><%= __('area-title') %></a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#gallery"><%= __('gallery-title') %></a>
+                    </li>
+                    <li>
+                        <%- RTL ? '<a href="index-en.html"><img src="img/language/en.png"> English</a>' : '<a href="index.html"><img src="img/language/he.png"> עברית</a>' %>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="intro-text">
+                <div class="intro-lead-in"><%= __('lead-in') %></div>
+                <div class="intro-heading"><%= __('title') %></div>
+                <a href="#units" class="page-scroll btn btn-xl"><%= __('lead-in cta') %></a>
+            </div>
+        </div>
+    </header>
+
+
+    <!-- units Grid Section -->
+    <section id="units" class="bg-light-gray">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading"><%= __('units-title') %></h2>
+                    <h3 class="section-subheading text-muted"><%= __('units-subtitle') %></h3>
+                </div>
+            </div>
+            <div class="row">
+                <% for(unit in units) { %>
+                <div class="col-md-6 col-sm-6 units-item">
+                    <a href="#unit-<%= unit.toLowerCase().replace(/'/g, '').replace(/ |\//g, '-') %>" class="units-link" data-toggle="modal">
+                        <div class="units-hover">
+                            <div class="units-hover-content">
+                                <i class="fa fa-plus fa-3x"></i>
+                            </div>
+                        </div>
+                        <img src="img/units/<%= units[unit].images ? unit + '-1.jpg' : 'roundicons.png' %>" class="img-responsive" alt="">
+                    </a>
+                    <div class="units-caption">
+                        <h4><%= __(unit) %></h4>
+                        <!--<p class="text-muted">Regular: <%= units[unit].price.regular %></p>
+                        <p class="text-muted">Season: <%= units[unit].price.season %></p>-->
+                        <p class="text-muted"><%= __(unit + '-blurb') %></p>
+                    </div>
+                </div>
+                <% } %>
+            </div>
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <o class="section-subheading text-muted"><%= __('units-outro') %></o>
+                </div>
+            </div>
+        </div>
+    </section>
+
+        <!-- Contact Section -->
+    <section id="contact">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading"><%= __('contact-title') %></h2>
+                    <h3 class="section-subheading text-muted"><%= __('contact-subtitle') %></h3>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-4">
+                    <h4 class="section-heading"><%= __('phone-title') %>:</h4>
+                    <%- __('phone') %>
+                </div>
+                <div class="col-lg-4">
+                    <h4 class="section-heading"><%= __('email-title') %>:</h4>
+                    <kbd>mail@amirim.net</kbd>
+                </div>
+                <div class="col-lg-4">
+                    <h4 class="section-heading"><%= __('address-title') %>:</h4>
+                    <kbd><%= __('address') %></kbd>
+                </div>
+            </div>
+        </div>
+    </section>
+
+        <!-- area Section -->
+    <section id="area">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading"><%= __('area-title') %></h2>
+                    <h3 class="section-subheading text-muted"><%= __('area-subtitle') %></h3>
+                </div>
+            </div>
+            <div class="row text-center">
+                <div class="col-md-4">
+                    <span class="fa-stack fa-4x">
+                        <i class="fa fa-circle fa-stack-2x text-primary"></i>
+                        <i class="fa fa-cutlery fa-stack-1x fa-inverse"></i>
+                    </span>
+                    <h4 class="service-heading"><%= __('dining-title') %></h4>
+                    <p class="text-muted"><%= __('dining-text') %></p>
+                </div>
+                <div class="col-md-4">
+                    <span class="fa-stack fa-4x">
+                        <i class="fa fa-circle fa-stack-2x text-primary"></i>
+                        <i class="fa fa-calendar fa-stack-1x fa-inverse"></i>
+                    </span>
+                    <h4 class="service-heading"><%= __('attraction-title') %></h4>
+                    <p class="text-muted"><%= __('attraction-text') %></p>
+                </div>
+                <div class="col-md-4">
+                    <span class="fa-stack fa-4x">
+                        <i class="fa fa-circle fa-stack-2x text-primary"></i>
+                        <i class="fa fa-map fa-stack-1x fa-inverse"></i>
+                    </span>
+                    <h4 class="service-heading"><%= __('map-title') %></h4>
+                    <p class="text-muted"><%= __('map-text') %></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- gallery Section -->
+    <section id="gallery" class="bg-light-gray">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading"><%= __('gallery-title') %></h2>
+                    <h3 class="section-subheading text-muted"><%- __('gallery-subtitle') %></h3>
+                </div>
+            </div>
+
+            <div id="gallery-carousel" class="carousel slide" data-ride="carousel">
+              <!-- Indicators -->
+              <ol class="carousel-indicators">
+                <% for(var i = 0; i < 8; i++){ %>
+                <li data-target="#gallery-carousel" data-slide-to="<%= i %>" class="<%= i === 0 && 'active' %>"></li>
+                <% } %>
+              </ol>
+
+              <!-- Wrapper for slides -->
+              <div class="carousel-inner" role="listbox">
+                <% for(var i = 1; i <= 8; i++){ %>
+                <div class="item<%= i === 1 ? ' active' : ''%>">
+                  <img src="img/gallery/gallery-<%= i %>.jpg" alt="...">
+                </div>
+                <% } %>
+                
+              </div>
+
+              <!-- Controls -->
+              <a class="left carousel-control" href="#gallery-carousel" role="button" data-slide="<%= RTL ? 'next' : 'prev' %>">
+                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+              </a>
+              <a class="right carousel-control" href="#gallery-carousel" role="button" data-slide="<%= RTL ? 'prev' : 'next' %>">
+                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+              </a>
+            </div>
+            
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <span class="copyright"><%- __('copyright-text') %></span>
+                </div>
+                
+                <div class="col-md-6">
+
+                    <span class="copyright"><%- __('built-text') %></span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- units Modals -->
+    <!-- Use the modals below to showcase details about your units projects! -->
+
+    <% for(unitName in units) {
+        var unit = units[unitName];
+    %>
+    <div class="units-modal modal fade" id="unit-<%= unitName.toLowerCase().replace(/'/g, '').replace(/ |\//g, '-') %>" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-content">
+            <div class="close-modal" data-dismiss="modal">
+                <h4><%= __('back-text') %> <span class="fa fa-home fa-3x"></span></h4>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 col-lg-offset-2">
+                        <div class="modal-body">
+                            <h1><%= __(unitName) %></h1>
+                            <p class="item-intro text-muted"><%= __(unitName + '-blurb') %>. <%= __(unitName + '-description') %></p>
+                           <div id="unit-carousel-<%= unitName %>" class="carousel slide" data-ride="carousel">
+                              <!-- Indicators -->
+                              <ol class="carousel-indicators">
+                                <% for(var i = 0; i < unit.images; i++){ %>
+                                <li data-target="#unit-carousel-<%= unitName %>" data-slide-to="<%= i %>" class="<%= i === 0 && 'active' %>"></li>
+                                <% } %>
+                              </ol>
+
+                              <!-- Wrapper for slides -->
+                              <div class="carousel-inner" role="listbox">
+                                <% for(var i = 1; i <= unit.images; i++){ %>
+                                <div class="item<%= (i === 1) ? ' active' : ''%>">
+                                  <img src="img/units/<%= unitName %>-<%= i %>.jpg" alt="...">
+                                </div>
+                                <% } %>
+                                
+                              </div>
+
+                              <!-- Controls -->
+                              <a class="left carousel-control" href="#unit-carousel-<%= unitName %>" role="button" data-slide="<%= RTL ? 'next' : 'prev' %>">
+                                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                                <span class="sr-only">Previous</span>
+                              </a>
+                              <a class="right carousel-control" href="#unit-carousel-<%= unitName %>" role="button" data-slide="<%= RTL ? 'prev' : 'next' %>">
+                                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                                <span class="sr-only">Next</span>
+                              </a>
+                            </div>
+                            <h3><%= __('amenities-title') %></h3>
+                            <ul class="list-inline">
+                                <li><%- __(unitName + '-occupancy') %></li>
+                                <li><%= __('tv-and-wifi') %></li>
+                                <li><%= __('ac-text') %></li>
+                            </ul>
+                            <% for(section in (unit.sections || {})) { %>
+                            <h4><%= __(section) %></h4>
+                                <ul class="amenities-list">
+                                    <% for(var i = 0; i < unit.sections[section].length; i++) { %>
+                                        <li><strong><%= __(unit.sections[section][i] + '-title') %></strong> <%= __(unit.sections[section][i] + '-description') %></li> %>
+                                    <% } %>
+                                </ul>
+                            <% } %>
+                            <h3><%= __('pricing-title') %></h3>
+                            <p class="text-muted">
+                                <%= price(unit.price.regular[0]) %> <%= __('pricing-midweek') %>, <%= price(unit.price.regular[1]) %> <%= __('pricing-weekend') %>.
+                                <strong><%= __('pricing-season') %>:</strong> <%= price(unit.price.season) %>
+                                <br>
+                                <small><%= __('pricing-season-duration') %></small></p>
+                            <div class="btn-group-vertical"><a class="btn btn-primary btn-alt go-contact"><i class="fa fa-phone"></i> <%= __('modal cta') %></a>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-times"></i> <%= __('modal close') %></button></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <% } %>
+
+
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+    <script src="js/classie.js"></script>
+    <script src="js/cbpAnimatedHeader.js"></script>
+
+    <!-- Contact Form JavaScript -->
+    <script src="js/jqBootstrapValidation.js"></script>
+    <script src="js/contact_me.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="js/agency.js"></script>
+
+</body>
+
+</html>
