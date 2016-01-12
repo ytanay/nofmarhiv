@@ -6,25 +6,46 @@
     var DICTIONARY = locals.DICTIONARY;
     var RTL = locals.RTL;
     function __(key){
-        return locals.DICTIONARY[key] || key;
+        return locals.DICTIONARY[key];// || key;
     }
 
     function price(value){
-        return RTL ? (value + ' ₪') : (value + '₪')
+        return RTL ? (value + '₪') : (value + '₪')
     }
 
     var units = {
+        'garden-suite': {
+            price: {
+                regular: [690, 890],
+                season: 1090
+            },
+            images: 4,
+            sections: {
+                'main-room': [
+                    'double-bed',
+                    'bathroom',
+                    'balcony-jacuzzi',
+                    'balcony',
+                    'kitchenette-room'
+                ],
+                'small-room': [
+                    '2-sleeper-sofas',
+                    'tv-and-ac'
+                ]
+            }
+        },  
+
         'family-suite': {
             price: {
-                regular: [790, 990],
-                season: 1200
+                regular: [690, 890],
+                season: 1090
             },
             images: 7,
             sections: {
                 'lower-level': [
                     'double-jacuzzi',
                     'sofa-living-room',
-                    'kitchenette'
+                    'kitchenette-room'
                 ],
                 'upper-level': [
                     'fully-wooden'
@@ -34,17 +55,19 @@
 
         'couples-suite': {
             price: {
-                regular: [690, 790],
-                season: 1090
+                regular: [790, 990],
+                season: 1200
             },
             images: 5,
             sections: {
                 'features': [
                     'balcony-jacuzzi',
-                    'kitchenette'
+                    'kitchenette-room'
                 ]
             }
         },
+
+        
         'family-cabin': {
             price: {
                 regular: [690, 890],
@@ -56,7 +79,7 @@
                     'sofa-living-room',
                     'bedroom-jacuzzi',
                     'balcony',
-                    'kitchenette'
+                    'kitchenette-cabin'
                 ]
             }
         },
@@ -71,11 +94,11 @@
                     'living-room-fireplace',
                     'balcony-jacuzzi',
                     'massaging-shower',
-                    'kitchenette'
+                    'kitchenette-cabin'
                 ]
             }
         },
-        /*'couples-vacation-apartment': {
+        'couples-vacation-apartment': {
             price: {
                 regular: [400, 500],
                 season: 500
@@ -85,10 +108,10 @@
                 'Features': [
                     'single-jacuzzi',
                     'panoramic-balcony',
-                    'kitchenette'
+                    'kitchenette-room'
                 ]
             }
-        },*/
+        },
     };
 %>
 <head>
@@ -192,8 +215,9 @@
                     <h3 class="section-subheading text-muted"><%= __('units-subtitle') %></h3>
                 </div>
             </div>
-            <div class="row">
-                <% for(unit in units) { %>
+            
+            <% var i = 0; for(unit in units) { %>
+                <%- (i++ % 2 === 0) ? '<div class="row">' : '' %>
                 <div class="col-md-6 col-sm-6 units-item">
                     <a href="#unit-<%= unit.toLowerCase().replace(/'/g, '').replace(/ |\//g, '-') %>" class="units-link" data-toggle="modal">
                         <div class="units-hover">
@@ -210,8 +234,9 @@
                         <p class="text-muted"><%= __(unit + '-blurb') %></p>
                     </div>
                 </div>
-                <% } %>
-            </div>
+                <%- (i % 2 === 0) ? '</div>' : '' %>
+            <% } %>
+            
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <o class="section-subheading text-muted"><%= __('units-outro') %></o>
@@ -237,7 +262,7 @@
                 </div>
                 <div class="col-lg-4">
                     <h4 class="section-heading"><%= __('email-title') %>:</h4>
-                    <kbd>mail@amirim.net</kbd>
+                    <kbd>levinamirim@gmail.com</kbd>
                 </div>
                 <div class="col-lg-4">
                     <h4 class="section-heading"><%= __('address-title') %>:</h4>
@@ -436,6 +461,16 @@
     <!-- Custom Theme JavaScript -->
     <script src="js/agency.js"></script>
 
+    <script>
+          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+          })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+          ga('create', 'UA-5892105-6', 'auto');
+          ga('send', 'pageview');
+
+        </script>
 </body>
 
 </html>

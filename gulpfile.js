@@ -3,9 +3,11 @@ var ejs = require("gulp-ejs");
 var gutil = require('gulp-util');
 var rename = require('gulp-rename')
 var browserSync = require('browser-sync').create();
+var fs = require('fs');
 
-var EN = require('./language/en');
-var HE = require('./language/he');
+function get(lang){
+  return JSON.parse(fs.readFileSync('./language/' + lang + '.json', 'utf-8'));
+}
 
 gulp.task('default', ['he', 'en'], function(){
   browserSync.init({
@@ -14,6 +16,7 @@ gulp.task('default', ['he', 'en'], function(){
     }
   });
   gulp.watch("./index.ejs", ['he', 'en']);
+  gulp.watch("./language/*", ['he', 'en']);
   gulp.watch("*.html").on('change', browserSync.reload);
 })
 
@@ -21,7 +24,7 @@ gulp.task('he', function(){
   gulp.src("./index.ejs")
     .pipe(ejs({
         RTL: true,
-        DICTIONARY: HE
+        DICTIONARY: get('he')
     }).on('error', gutil.log))
     .pipe(gulp.dest('../nofmarhiv'));
 
@@ -39,7 +42,7 @@ gulp.task('en', function(){
   gulp.src("./index.ejs")
     .pipe(ejs({
         RTL: false,
-        DICTIONARY: EN
+        DICTIONARY: get('en')
     }).on('error', gutil.log))
     .pipe(rename('index-en.html'))
     .pipe(gulp.dest('../nofmarhiv'));
