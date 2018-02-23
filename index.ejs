@@ -428,7 +428,7 @@
                             <% } %>
                             <h3><%= __('pricing-title') %></h3>
                             <p class="text-muted">
-                                <%= price(unit.price.regular[0]) %> <%= __('pricing-midweek') %>, <%= price(unit.price.regular[1]) %> <%= __('pricing-weekend') %>.
+                                <%= price(unit.price.regular[0]) %> <%= __('pricing-midweek') %>, <%= price(unit.price.regular[1]) %> <%= __('pricing-weekend') %><% if(unit.price.regular.length > 2) { %>, <%= price(unit.price.regular[2]) %> <%= __('pricing-two-nights') %><% } %>.
                                 <strong><%= __('pricing-season') %>:</strong> <%= price(unit.price.season) %>
                                 <br>
                                 <small><%= __('pricing-season-duration') %></small></p>
